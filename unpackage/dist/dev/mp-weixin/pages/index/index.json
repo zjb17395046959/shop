@@ -1,0 +1,6 @@
+{
+  "navigationBarTitleText": "商城",
+  "navigationStyle": "custom",
+  "enablePullDownRefresh": true,
+  "usingComponents": {}
+}

@@ -1,0 +1,153 @@
+{
+	"pages": [
+		{
+		"path": "pages/index/index",
+		"style": {
+			"navigationBarTitleText": "商城",
+			"navigationStyle":"custom",
+			"enablePullDownRefresh":true,
+			"app-plus":{
+				"bounce":"none"
+				// "titleNView":{
+				// 	"searchInput":{
+				// 		"align":"center",
+				// 		"borderRadius":"10px",
+				// 		"placeholder":"碧螺春",
+				// 		"disabled":true,
+				// 		"backgroundColor":"#eee"
+				// 	}
+				// }
+			}
+		  }
+		},
+		{
+		"path": "pages/show/show",
+		"style": {
+			"navigationBarTitleText": "首页",
+			"h5":{
+				"titleNView":{
+					"buttons":[
+						{
+							"float":"left",
+							"fontSrc":"/static/css/iconfont.ttf",
+							"text":"&#xe613;"
+						},
+						{
+							"float":"right",
+							"fontSrc":"/static/css/iconfont.ttf",
+							"text":"&#xe61b;"
+						}
+					]
+				}
+			},
+			"app-plus":{
+				"bounce":"none",
+				"titleNView":{
+					"buttons":[
+						{
+							"float":"left",
+							"fontSrc":"/static/css/iconfont.ttf",
+							"text":"&#xe613;"
+						},
+						{
+							"float":"right",
+							"fontSrc":"/static/css/iconfont.ttf",
+							"text":"&#xe61b;"
+						}
+					]
+				}
+			}
+			}
+		},
+		{
+		"path": "pages/shop/shop",
+		"style": {
+			"navigationBarTitleText": "购物车"
+			}
+		},
+		{
+		"path": "pages/my/my",
+		"style": {
+			"navigationBarTitleText": "我的",
+			"app-plus":{
+				"titleNView":{
+					"buttons":[
+						{
+							"float":"right",
+							"fontSrc":"/static/css/iconfont.ttf",
+							"text":"&#xe60b;"
+						}
+					]
+				}
+			 }
+			}
+		},
+		{
+			"path":"pages/login/login",
+			"style":{
+				"navigationBarTitleText":"登录页面"
+			}
+		},
+		{//系统设置页面
+			"path":"pages/sheZhi/sheZhi",
+			"style":{
+				"navigationBarTitleText":"系统设置"
+			}
+		},
+		{//系统设置===>关于我们页面
+			"path":"pages/sheZhi/about/about",
+			"style":{
+				"navigationBarTitleText":"关于我们"
+			}
+		},
+		{//系统设置===>关于我们页面
+			"path":"pages/sheZhi/ipone-bind/ipone-bind",
+			"style":{
+				"navigationBarTitleText":"手机绑定"
+			}
+		},
+		{//系统设置===>关于我们页面
+			"path":"pages/sheZhi/password-set/password-set",
+			"style":{
+				"navigationBarTitleText":"登录密码设置"
+			}
+		}
+	],
+	"globalStyle": {
+		"navigationBarTextStyle": "black",
+		"navigationBarTitleText": "uni-app",
+		"navigationBarBackgroundColor": "#FFFFFF",
+		"backgroundColor": "#FFFFFF"
+		
+	},
+	"tabBar":{
+		"selectedColor":"#98FB98",
+		"color":"#bfbfbf",
+		"list":[
+			{
+				"pagePath":"pages/index/index",
+				"iconPath":"static/img/shop.png",
+				"selectedIconPath":"static/img/shop_s.png",
+				"text":"商城"
+			},
+			{
+				"pagePath":"pages/show/show",
+				"iconPath":"static/img/lucky.png",
+				"selectedIconPath":"static/img/lucky_s.png",
+				"text":"首页"
+			},
+			{
+				"pagePath":"pages/shop/shop",
+				"iconPath":"static/img/leaf.png",
+				"selectedIconPath":"static/img/leaf_s.png",
+				"text":"购物车"
+			},
+			{
+				"pagePath":"pages/my/my",
+				"iconPath":"static/img/my.png",
+				"selectedIconPath":"static/img/my_s.png",
+				"text":"我的"
+			}
+		]
+	}
+}
