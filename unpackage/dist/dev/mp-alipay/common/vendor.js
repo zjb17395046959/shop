@@ -10249,7 +10249,8 @@ var store = new _vuex.default.Store({
   state: {
     index_swiper: [],
     show_swiper: [],
-    index_list: []
+    index_list: [],
+    show_list: []
     // 商城页面的轮播图数据
     // index_swiper:[
     // 	'https://vkceyugu.cdn.bspapp.com/VKCEYUGU-qiushi/060e4dd0-6f7c-11ea-b94e-47f67ecf8268.jpg',
@@ -10298,6 +10299,9 @@ var store = new _vuex.default.Store({
     },
     index_list: function index_list(state, val) {
       state.index_list = val;
+    },
+    show_list: function show_list(state, val) {
+      state.show_list = val;
     } } });var _default =
 
 

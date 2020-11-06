@@ -82,7 +82,7 @@
 			})
 			
 			//获取当前页面的数据列表
-			var list = await this.$http('list');
+			var list = await this.$http('list',{k:'list'});
 			console.log(list);
 			this.$store.commit('index_list',list.result.data[0].index_list);
 		},

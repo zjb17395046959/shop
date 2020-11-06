@@ -2,10 +2,20 @@
 const db =uniCloud.database();
 exports.main = async (event, context) => {
 	//event为客户端上传的参数
-	const { page } =event;
-	const res = db.collection('list').get();
+	switch (event.k){
+		case 'list':
+			const res = db.collection('list').get();
+			return res;
+			break;
+		case 'show_list':
+			const res1 = db.collection('show_list').get();
+			return res1;
+			break;
+		default:
+			break;
+	}
+	
 	
 	
 	//返回数据给客户端
-	return res
 };

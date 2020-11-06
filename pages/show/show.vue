@@ -9,7 +9,7 @@
 					<block v-for="(item,index) in show_swiper" :key="item.id">
 						<swiper-item>
 							<view class="swiper-item">
-								<image :src="item.img" mode="aspectFill"></image>
+								<image :src="item" mode="aspectFill"></image>
 							</view>
 						</swiper-item>
 					</block>
@@ -58,6 +58,12 @@
 				current:0,//当前轮播图的指示点的默认下标是0
 				
 			}
+		},
+		async onLoad() {
+			//获取当前页面的数据列表
+			var list = await this.$http('list',{k:'show_list'});
+			console.log(list);
+			this.$store.commit('show_list',list.result.data[0].data);
 		},
 		// #ifdef APP-PLUS ||H5
 		// 监听原声导航栏上面的按钮事件

@@ -218,7 +218,7 @@ var _vuex = __webpack_require__(/*! vuex */ 22);function _interopRequireDefault(
 
 
               //获取当前页面的数据列表
-              _context.next = 7;return _this2.$http('list');case 7:list = _context.sent;
+              _context.next = 7;return _this2.$http('list', { k: 'list' });case 7:list = _context.sent;
               console.log(list);
               _this2.$store.commit('index_list', list.result.data[0].index_list);case 10:case "end":return _context.stop();}}}, _callee);}))();
   },
