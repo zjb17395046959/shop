@@ -1,0 +1,7 @@
+{
+  "defaultTitle": "首页",
+  "usingComponents": {
+    "uni-swiper-dot": "/components/uni-swiper-dot/uni-swiper-dot",
+    "page-sl": "/components/page-sl/page-sl"
+  }
+}

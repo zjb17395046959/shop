@@ -19,10 +19,50 @@ Vue.prototype.$fromat = mat;
 //md5加密密码数据
 import md5 from './static/js/md5.js';
 Vue.prototype.md5 = md5;
+//实现使用拼音查找中文字段的插件（有点问题）
+import PinYinMatch from './static/js/main.js';
+Vue.prototype.PinYinMatch = PinYinMatch;
+
+import store from './store';
+
+//封装全局的请求云函数的方法
+Vue.prototype.$http = function(name,data=''){
+	uni.showLoading({
+		title:'加载中'
+	});
+	return new Promise((resolve,reject)=>{
+		uniCloud.callFunction({
+			name:name,
+			data:data,
+			success: (res) => {
+				resolve(res);
+				uni.hideLoading();
+				
+			},fail: (msg) => {
+				uni.hideLoading();
+				reject(msg);
+				uni.showToast({
+					title:JSON.stringify(msg)+'数据请求错误',
+					icon:"none"
+				});
+				// console.log(msg);
+			}
+		})
+	})
+},
+
+Vue.filter('format_ipone',function(val){
+	if(val){
+		var reg = /^(\d{3})\d{4}(\d{4})$/;
+		val = val.replace(reg, "$1****$2");
+	}
+	return val;
+})
 
 App.mpType = 'app'
 
 const app = new Vue({
-	...App
+	...App,
+	store
 })
 app.$mount()

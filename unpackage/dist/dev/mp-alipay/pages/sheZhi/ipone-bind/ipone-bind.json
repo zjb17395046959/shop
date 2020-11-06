@@ -1,0 +1,6 @@
+{
+  "defaultTitle": "手机绑定",
+  "usingComponents": {
+    "page-bu-ju": "/components/page-buJu/page-buJu"
+  }
+}

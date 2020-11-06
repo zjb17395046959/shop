@@ -1,0 +1,7 @@
+{
+  "navigationBarTitleText": "商品详情",
+  "enablePullDownRefresh": false,
+  "usingComponents": {
+    "page-for-buju": "/components/page-for-buju/page-for-buju"
+  }
+}

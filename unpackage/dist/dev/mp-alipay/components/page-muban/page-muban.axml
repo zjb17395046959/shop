@@ -1,0 +1,1 @@
+<view class="my-list"><view class="my-list-box" hover-class="my-list-active"><view class="{{(('icon iconfont')+' '+('icon-'+icon))}}"></view><view class="my-list-box-title">{{title}}</view><view hidden="{{!(content)}}" class="content">{{content}}</view><image class="my-list-box-img" src="/static/img/right.png" mode="widthFix"></image></view></view>

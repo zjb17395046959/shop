@@ -4,10 +4,15 @@
 		"path": "pages/index/index",
 		"style": {
 			"navigationBarTitleText": "商城",
-			"navigationStyle":"custom",
 			"enablePullDownRefresh":true,
+			// #ifdef H5 || APP-PLUS
+			"navigationStyle":"custom",
+			// #endif
 			"app-plus":{
-				"bounce":"none"
+				"bounce":"none",
+				"titleNView":{
+					
+				}
 				// "titleNView":{
 				// 	"searchInput":{
 				// 		"align":"center",
@@ -112,7 +117,50 @@
 				"navigationBarTitleText":"登录密码设置"
 			}
 		}
-	],
+	    
+        ,{
+            "path" : "pages/my_order/my_order",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "订单",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+        ,{
+            "path" : "pages/search/search",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "搜索页面",
+				// #ifdef H5 || APP-PLUS
+				"navigationStyle":"custom",
+				// #endif
+                "enablePullDownRefresh": false
+            }
+            
+        }
+        ,{
+            "path" : "pages/404page/404page",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "404错误页面",
+                "enablePullDownRefresh": false
+            }
+            
+        },
+		{
+		    "path" : "pages/go_shop/go_shop",
+		    "style" :                                                                                    
+		    {	
+				// #ifdef H5 || APP-PLUS
+				"navigationStyle":"custom",
+				// #endif
+		        "navigationBarTitleText": "商品详情",
+		        "enablePullDownRefresh": false
+		    }
+		    
+		}
+    ],
 	"globalStyle": {
 		"navigationBarTextStyle": "black",
 		"navigationBarTitleText": "uni-app",

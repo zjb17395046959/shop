@@ -17,7 +17,7 @@
 	}
 	.shop{
 		width: 100%;
-		height: 100%;
+		height: 100% !important;
 		background-color: #eee;
 		display: flex;
 		flex-direction: column;
@@ -37,6 +37,8 @@
 			color: #fff;
 			background-color:orange;
 			border-radius: 20rpx;
+			width: 200rpx;
+			margin: 0 auto;
 		}
 		
 	}

@@ -1,0 +1,7 @@
+{
+  "defaultTitle": "商城",
+  "pullRefresh": true,
+  "usingComponents": {
+    "page-sl": "/components/page-sl/page-sl"
+  }
+}

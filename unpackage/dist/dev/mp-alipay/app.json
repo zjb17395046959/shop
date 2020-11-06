@@ -1,0 +1,54 @@
+{
+  "pages": [
+    "pages/index/index",
+    "pages/show/show",
+    "pages/shop/shop",
+    "pages/my/my",
+    "pages/login/login",
+    "pages/sheZhi/sheZhi",
+    "pages/sheZhi/about/about",
+    "pages/sheZhi/ipone-bind/ipone-bind",
+    "pages/sheZhi/password-set/password-set",
+    "pages/my_order/my_order",
+    "pages/search/search",
+    "pages/404page/404page",
+    "pages/go_shop/go_shop"
+  ],
+  "subPackages": [],
+  "window": {
+    "defaultTitle": "uni-app",
+    "titleBarColor": "#FFFFFF",
+    "backgroundColor": "#FFFFFF"
+  },
+  "tabBar": {
+    "textColor": "#bfbfbf",
+    "selectedColor": "#98FB98",
+    "items": [
+      {
+        "pagePath": "pages/index/index",
+        "name": "商城",
+        "icon": "static/img/shop.png",
+        "activeIcon": "static/img/shop_s.png"
+      },
+      {
+        "pagePath": "pages/show/show",
+        "name": "首页",
+        "icon": "static/img/lucky.png",
+        "activeIcon": "static/img/lucky_s.png"
+      },
+      {
+        "pagePath": "pages/shop/shop",
+        "name": "购物车",
+        "icon": "static/img/leaf.png",
+        "activeIcon": "static/img/leaf_s.png"
+      },
+      {
+        "pagePath": "pages/my/my",
+        "name": "我的",
+        "icon": "static/img/my.png",
+        "activeIcon": "static/img/my_s.png"
+      }
+    ]
+  },
+  "usingComponents": {}
+}

@@ -1,1 +1,1 @@
-<view><view class="sl">{{"————"+sl+"————"}}</view></view>
+<view><view class="{{['sl',paddingBottom==1?'ac':'']}}">{{"————"+sl+"————"}}</view></view>

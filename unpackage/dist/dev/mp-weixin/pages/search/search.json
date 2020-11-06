@@ -1,0 +1,9 @@
+{
+  "navigationBarTitleText": "搜索页面",
+  "enablePullDownRefresh": false,
+  "usingComponents": {
+    "page-for-buju": "/components/page-for-buju/page-for-buju",
+    "page-for-eassy": "/components/page-for-eassy/page-for-eassy",
+    "page-sl": "/components/page-sl/page-sl"
+  }
+}

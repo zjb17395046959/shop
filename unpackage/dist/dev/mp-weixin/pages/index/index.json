@@ -1,6 +1,7 @@
 {
   "navigationBarTitleText": "商城",
-  "navigationStyle": "custom",
   "enablePullDownRefresh": true,
-  "usingComponents": {}
+  "usingComponents": {
+    "page-sl": "/components/page-sl/page-sl"
+  }
 }

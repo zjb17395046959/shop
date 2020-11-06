@@ -1,0 +1,1 @@
+<view class="buJu data-v-4ef4553e"><view class="buJu-list data-v-4ef4553e"><slot name="list"></slot></view><view class="buJu-tabbar data-v-4ef4553e"><slot name="footer"></slot></view></view>

@@ -3,13 +3,22 @@
     "pages/index/index",
     "pages/show/show",
     "pages/shop/shop",
-    "pages/my/my"
+    "pages/my/my",
+    "pages/login/login",
+    "pages/sheZhi/sheZhi",
+    "pages/sheZhi/about/about",
+    "pages/sheZhi/ipone-bind/ipone-bind",
+    "pages/sheZhi/password-set/password-set",
+    "pages/my_order/my_order",
+    "pages/search/search",
+    "pages/404page/404page",
+    "pages/go_shop/go_shop"
   ],
   "subPackages": [],
   "window": {
-    "navigationBarTextStyle": "white",
+    "navigationBarTextStyle": "black",
     "navigationBarTitleText": "uni-app",
-    "navigationBarBackgroundColor": "#007AFF",
+    "navigationBarBackgroundColor": "#FFFFFF",
     "backgroundColor": "#FFFFFF"
   },
   "tabBar": {
@@ -42,6 +51,9 @@
       }
     ]
   },
+  "uniStatistics": {
+    "enable": true
+  },
   "usingComponents": {},
-  "sitemapLocation": "sitemap89.json"
+  "sitemapLocation": "sitemap90.json"
 }

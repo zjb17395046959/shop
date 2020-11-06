@@ -1,0 +1,6 @@
+{
+  "defaultTitle": "系统设置",
+  "usingComponents": {
+    "page-muban": "/components/page-muban/page-muban"
+  }
+}

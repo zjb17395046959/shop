@@ -15,7 +15,7 @@
 			</view>
 		</view>
 		<!-- 底部按钮 -->
-		<button type="default" class="btn" size="default">退出登录</button>
+		<button type="default" class="btn" @click="btn">退出登录</button>
 		<!-- 系统页面布局结束 -->
 	</view>
 </template>
@@ -31,6 +31,14 @@
 			
 		},
 		methods:{
+			//退出登录
+			btn(){
+				uni.setStorageSync('token','');
+				uni.navigateBack({
+					delta:1
+				})
+			},
+			// 点击跳转相应的页面设置
 			about(k){
 				switch (k){
 					case 1:
@@ -45,11 +53,13 @@
 						break;
 					case 3:
 						uni.navigateTo({
-							url:'/pages/sheZhi/password-set/password-set'
+							url:'/pages/sheZhi/password-set/password-set?set=1'
 						})
 						break;
 					default:
-						console.log(44)
+						uni.navigateTo({
+							url:'/pages/sheZhi/password-set/password-set?set=2'
+						})
 						break;
 				}
 			}

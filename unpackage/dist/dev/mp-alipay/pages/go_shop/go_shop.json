@@ -1,0 +1,7 @@
+{
+  "defaultTitle": "商品详情",
+  "pullRefresh": false,
+  "usingComponents": {
+    "page-for-buju": "/components/page-for-buju/page-for-buju"
+  }
+}

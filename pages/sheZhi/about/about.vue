@@ -51,7 +51,7 @@
 							}
 						})
 						break;
-					default:
+					case 5:
 						uni.showModal({
 							title:'隐私政策',
 							content:'我们会对你的个人信息进行严格的保密，是否同意',
@@ -71,6 +71,8 @@
 								}
 							}
 						})
+						break;
+						default:
 						break;
 				}
 			}

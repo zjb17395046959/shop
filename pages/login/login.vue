@@ -2,7 +2,7 @@
 	<!-- 登录模板布局开始 -->
 	<view class="login">
 		<!-- 用户头像 -->
-		<image class="login-img" src="http://tea.skycto.com/static/img/mine/default-head.png" mode="widthFix"></image>
+		<image class="login-img" src="../../static/img/16.jpg" mode="widthFix"></image>
 		<!-- 输入框布局 -->
 		<!-- 登录页 -->
 		<view class="login-input" v-show="iShow">
@@ -12,8 +12,8 @@
 				@click="userName=''"></image>
 			</view>
 			<view class="login-input-box">
-				<input type="text" placeholder="请输入密码(字母+数字)" maxlength="14" v-model="password" v-show="!isPass" password/>
-				<input type="text" placeholder="请输入密码(字母+数字)" maxlength="14" v-model="password" v-show="isPass"/>
+				<input type="text" placeholder="请输入密码(字母+数字)" maxlength="14" v-model="password" v-if="!isPass" password/>
+				<input type="text" placeholder="请输入密码(字母+数字)" maxlength="14" v-model="password" v-if="isPass"/>
 				<image v-show="password.length!=''" class="login-img1" src="../../static/img/error.png" mode="scaleToFill"
 				@click="err_pas"></image>
 				<text class="icon iconfont icon-yanjing" @click="isPass=!isPass" :class="isPass?'isPass':''"></text>
@@ -32,7 +32,9 @@
 			</view>
 		</view>
 		<button type="default" class="btn" :disable="disable" :style="{background:disable?'#eee':''}"
-		@click="btn">登录</button>
+		@click="btn(1)" v-if="iShow">登录</button>
+		<button type="default" class="btn" :disable="disable" :style="{background:disable?'#eee':''}"
+		@click="btn(2)" v-if="!iShow">注册</button>
 		<view class="zc" @click="qh" v-if="iShow">注册/验证码登录</view>
 		<view class="zc" @click="qh" v-else>账户密码登录</view>
 	<!-- 登录模板布局结束 -->	
@@ -54,6 +56,7 @@
 				yzmTimer:0,//验证码时间
 			}
 		},
+		
 		methods:{
 			// 验证码验证，6位纯数字
 			yzmCode(){
@@ -134,45 +137,85 @@
 				},1000);
 				
 			},
-			btn(){
-				//如果验证都通过了，那么就跳转到我的页面
-				let oldPassword = uni.getStorageSync('password')||'';
-				let newPassword = this.md5(this.password);
-				if(oldPassword != newPassword){
-					uni.showToast({
-						title:'密码错误',
-						icon:'none'
-					});
-					return false;
+			btn(k){//k=1；登录   k=2注册
+				switch (k){
+					case 1:
+						if(this.phoneNumber()&&this.checkPassword()){
+							//如果验证都通过了，那么就跳转到我的页面
+							let oldPassword = uni.getStorageSync('password')||'';
+							let newPassword = this.md5(this.password);
+							if(oldPassword != newPassword){
+								uni.showToast({
+									title:'密码错误',
+									icon:'none'
+								});
+								return false;
+							}
+							uni.showToast({
+								icon:'success',
+								title:'登录成功'
+							})
+							// setTimeout(()=>{
+								uni.reLaunch({
+									url:'/pages/my/my'
+								})
+							// },1000)
+						}
+						break;
+					case 2:
+					// uniCloud.callFunction({
+					//     name: 'register',
+					//     data: {
+					//         username: this.userName,
+					//         password: this.yzm
+					//     },
+					//     success(res){
+					// 		console.log(res);
+					//         if(res.result.code === 0) {
+					//       // 目前版本是驼峰形式uniIdToken，后面会调整为蛇形uni_id_token（调整后会在一段时间内兼容驼峰）
+					//             uni.setStorageSync('uniIdToken',res.result.token)
+					//             // 其他业务代码，如跳转到首页等
+					//             uni.showToast({
+					//                 title: '注册成功',
+					//                 icon: 'none'
+					//             })
+					//         } else {
+					//             uni.showModal({
+					//                 content: res.result.message,
+					//                 showCancel: false
+					//             })
+					//         }
+					//     },
+					//     fail(){
+					//         uni.showModal({
+					//             content: '注册失败，请稍后再试',
+					//             showCancel: false
+					//         })
+					//     }
+					// })
+						if(this.phoneNumberVerify()&&this.yzmCode()){
+							uni.showToast({
+								icon:'success',
+								title:'注册成功'
+							});
+							uni.setStorageSync('ipone',this.iponeNumber);
+							uni.setStorageSync('token',this.iponeNumber);
+							// setTimeout(()=>{
+								uni.reLaunch({
+									url:'/pages/my/my'
+								})
+							// },1000)
+						}
+						break;
+					default:
+						uni.showToast({
+							icon:'none',
+							title:'格式错误'
+						});
+						break;
 				}
-				if(this.phoneNumber()&&this.checkPassword()){
-					uni.showToast({
-						icon:'success',
-						title:'登录成功'
-					})
-					// setTimeout(()=>{
-						uni.reLaunch({
-							url:'/pages/my/my'
-						})
-					// },1000)
-				}else if(this.phoneNumberVerify()&&this.yzmCode()){
-					uni.showToast({
-						icon:'success',
-						title:'注册成功'
-					});
-					uni.setStorageSync('ipone',this.iponeNumber);
-					uni.setStorageSync('token',this.iponeNumber);
-					// setTimeout(()=>{
-						uni.reLaunch({
-							url:'/pages/my/my'
-						})
-					// },1000)
-				}else{
-					uni.showToast({
-						icon:'none',
-						title:'格式错误'
-					});
-				}
+				
+				
 			}
 		},
 		watch:{
