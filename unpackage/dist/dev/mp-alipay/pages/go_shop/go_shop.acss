@@ -24,6 +24,23 @@
 /* 垂直间距 */
 /* 透明度 */
 /* 文章场景相关 */
+.active.data-v-13b40a3c {
+  color: orange;
+  border-bottom: 6rpx solid orange;
+}
+.btn.data-v-13b40a3c {
+  line-height: 0;
+  padding: 0;
+  height: auto;
+  border: none;
+  background-color: #FFFFFF;
+}
+button.data-v-13b40a3c::after {
+  border: none;
+}
+.button-hover.data-v-13b40a3c {
+  background: #fff;
+}
 .status_bar.data-v-13b40a3c {
   height: 40rpx;
   width: 100%;
@@ -42,7 +59,8 @@ page.data-v-13b40a3c {
   -webkit-box-align: center;
   -webkit-align-items: center;
           align-items: center;
-  box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
   background-color: white;
   opacity: 0;
   position: fixed;
@@ -93,7 +111,8 @@ page.data-v-13b40a3c {
   right: 30rpx;
   background-color: rgba(0, 0, 0, 0.4);
   color: #fff;
-  border-radius: 40rpx;
+  -webkit-border-radius: 40rpx;
+          border-radius: 40rpx;
 }
 .go_shop .go_shop_nav .go_shop_top.data-v-13b40a3c {
   padding: 10rpx 20rpx;

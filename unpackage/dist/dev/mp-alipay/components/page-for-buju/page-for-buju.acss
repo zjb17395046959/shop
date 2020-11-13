@@ -34,12 +34,14 @@
           align-items: center;
   margin-bottom: 20rpx;
   padding: 0 20rpx;
-  box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
 }
 .swiper-item-all-list .img.data-v-31d80586 {
   width: 160rpx;
   height: 160rpx;
-  border-radius: 10rpx;
+  -webkit-border-radius: 10rpx;
+          border-radius: 10rpx;
 }
 .swiper-item-all-list .swiper-item-all-list-box.data-v-31d80586 {
   -webkit-box-flex: 1;

@@ -32,7 +32,8 @@ page.data-v-487f5b24 {
   height: 100%;
   background-color: #f4f5f6;
   padding-top: 20rpx;
-  box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
 }
 .ipone-bind .ipone-bind-list.data-v-487f5b24 {
   background-color: #fff;

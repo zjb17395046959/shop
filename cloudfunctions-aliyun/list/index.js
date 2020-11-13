@@ -4,7 +4,7 @@ exports.main = async (event, context) => {
 	//event为客户端上传的参数
 	switch (event.k){
 		case 'list':
-			const res = db.collection('list').get();
+			const res = db.collection('list').limit(2).get();
 			return res;
 			break;
 		case 'show_list':

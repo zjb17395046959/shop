@@ -31,7 +31,8 @@ page.data-v-4bd9a766 {
   width: 100%;
   height: 100%;
   background-color: #f4f5f6;
-  box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
   padding-top: 8rpx;
   display: -webkit-box;
   display: -webkit-flex;

@@ -34,12 +34,14 @@
           align-items: center;
   margin-bottom: 20rpx;
   padding: 0 20rpx;
-  box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
 }
 .page-for-eassy .item-all-list .img.data-v-ce16ac38 {
   width: 160rpx;
   height: 160rpx;
-  border-radius: 10rpx;
+  -webkit-border-radius: 10rpx;
+          border-radius: 10rpx;
 }
 .page-for-eassy .item-all-list .swiper-item-all-list-box.data-v-ce16ac38 {
   -webkit-box-flex: 1;

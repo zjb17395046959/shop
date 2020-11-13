@@ -45,14 +45,16 @@ page {
 .show-nav > image {
   width: 40rpx;
   height: 40rpx;
-  border-radius: 50%;
+  -webkit-border-radius: 50%;
+          border-radius: 50%;
   padding: 10rpx;
   background-color: rgba(0, 0, 0, 0.4);
   margin-left: 20rpx;
 }
 .show-nav > view {
   font-size: 40rpx;
-  border-radius: 50%;
+  -webkit-border-radius: 50%;
+          border-radius: 50%;
   padding: 10rpx;
   background-color: rgba(0, 0, 0, 0.4);
   color: #fff;

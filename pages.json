@@ -92,41 +92,7 @@
 			"style":{
 				"navigationBarTitleText":"登录页面"
 			}
-		},
-		{//系统设置页面
-			"path":"pages/sheZhi/sheZhi",
-			"style":{
-				"navigationBarTitleText":"系统设置"
-			}
-		},
-		{//系统设置===>关于我们页面
-			"path":"pages/sheZhi/about/about",
-			"style":{
-				"navigationBarTitleText":"关于我们"
-			}
-		},
-		{//系统设置===>关于我们页面
-			"path":"pages/sheZhi/ipone-bind/ipone-bind",
-			"style":{
-				"navigationBarTitleText":"手机绑定"
-			}
-		},
-		{//系统设置===>关于我们页面
-			"path":"pages/sheZhi/password-set/password-set",
-			"style":{
-				"navigationBarTitleText":"登录密码设置"
-			}
 		}
-	    
-        ,{
-            "path" : "pages/my_order/my_order",
-            "style" :                                                                                    
-            {
-                "navigationBarTitleText": "订单",
-                "enablePullDownRefresh": false
-            }
-            
-        }
         ,{
             "path" : "pages/search/search",
             "style" :                                                                                    
@@ -147,20 +113,88 @@
                 "enablePullDownRefresh": false
             }
             
-        },
-		{
-		    "path" : "pages/go_shop/go_shop",
-		    "style" :                                                                                    
-		    {	
-				// #ifdef H5 || APP-PLUS
-				"navigationStyle":"custom",
-				// #endif
-		        "navigationBarTitleText": "商品详情",
-		        "enablePullDownRefresh": false
-		    }
-		    
-		}
+        }
+        ,{
+            "path" : "pages/we-login/we-login",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "",
+                "enablePullDownRefresh": false
+            }
+            
+        }
     ],
+	// 分包下载
+	"subPackages":[
+		{
+			"root":"myPage",
+			"pages":[
+				{//系统设置页面
+					"path":"pages/sheZhi/sheZhi",
+					"style":{
+						"navigationBarTitleText":"系统设置"
+					}
+				},
+				{//系统设置===>关于我们页面
+					"path":"pages/sheZhi/about/about",
+					"style":{
+						"navigationBarTitleText":"关于我们"
+					}
+				},
+				{//系统设置===>关于我们页面
+					"path":"pages/sheZhi/ipone-bind/ipone-bind",
+					"style":{
+						"navigationBarTitleText":"手机绑定"
+					}
+				},
+				{//系统设置===>关于我们页面
+					"path":"pages/sheZhi/password-set/password-set",
+					"style":{
+						"navigationBarTitleText":"登录密码设置"
+					}
+				}
+				
+				,{
+				    "path" : "pages/my_order/my_order",
+				    "style" :                                                                                    
+				    {
+				        "navigationBarTitleText": "订单",
+				        "enablePullDownRefresh": false
+				    }
+				    
+				}
+			]
+		},
+		{
+			"root":"indexPage",
+			"pages":[
+				{
+				    "path" : "pages/go_shop/go_shop",
+				    "style" :                                                                                    
+				    {	
+						// #ifdef H5 || APP-PLUS
+						"navigationStyle":"custom",
+						// #endif
+				        "navigationBarTitleText": "商品详情",
+				        "enablePullDownRefresh": false
+				    }
+				    
+				}
+			]
+		}
+	],
+	// 分包预下载，进入首页的时候，提前下载商品详情页面
+	// 进入我的页面，提前下载我的页面中的下载等配置页面
+	"preloadRule":{
+		"pages/index/index":{
+			"network":"all",
+			"packages":["indexPage"]
+		},
+		"pages/my/my":{
+			"network":"all",
+			"packages":["myPage"]
+		}
+	},
 	"globalStyle": {
 		"navigationBarTextStyle": "black",
 		"navigationBarTitleText": "uni-app",

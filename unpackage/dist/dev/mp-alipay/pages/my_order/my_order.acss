@@ -96,7 +96,8 @@ page.data-v-144b5e34 {
 }
 .my-order .my-order-list .my-order-swiper .swiper-item .btn.data-v-144b5e34 {
   padding: 10rpx 20rpx;
-  border-radius: 40rpx;
+  -webkit-border-radius: 40rpx;
+          border-radius: 40rpx;
   background-color: orange;
   color: #fff;
 }

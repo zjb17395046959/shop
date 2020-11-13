@@ -56,7 +56,8 @@ page {
   border: none;
   color: #fff;
   background-color: orange;
-  border-radius: 20rpx;
+  -webkit-border-radius: 20rpx;
+          border-radius: 20rpx;
   width: 200rpx;
   margin: 0 auto;
 }

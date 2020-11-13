@@ -5,16 +5,28 @@
     "pages/shop/shop",
     "pages/my/my",
     "pages/login/login",
-    "pages/sheZhi/sheZhi",
-    "pages/sheZhi/about/about",
-    "pages/sheZhi/ipone-bind/ipone-bind",
-    "pages/sheZhi/password-set/password-set",
-    "pages/my_order/my_order",
     "pages/search/search",
     "pages/404page/404page",
-    "pages/go_shop/go_shop"
+    "pages/we-login/we-login"
   ],
-  "subPackages": [],
+  "subPackages": [
+    {
+      "root": "myPage",
+      "pages": [
+        "pages/sheZhi/sheZhi",
+        "pages/sheZhi/about/about",
+        "pages/sheZhi/ipone-bind/ipone-bind",
+        "pages/sheZhi/password-set/password-set",
+        "pages/my_order/my_order"
+      ]
+    },
+    {
+      "root": "indexPage",
+      "pages": [
+        "pages/go_shop/go_shop"
+      ]
+    }
+  ],
   "window": {
     "navigationBarTextStyle": "black",
     "navigationBarTitleText": "uni-app",
@@ -51,9 +63,23 @@
       }
     ]
   },
+  "preloadRule": {
+    "pages/index/index": {
+      "network": "all",
+      "packages": [
+        "indexPage"
+      ]
+    },
+    "pages/my/my": {
+      "network": "all",
+      "packages": [
+        "myPage"
+      ]
+    }
+  },
   "uniStatistics": {
     "enable": true
   },
   "usingComponents": {},
-  "sitemapLocation": "sitemap90.json"
+  "sitemapLocation": "sitemap61.json"
 }

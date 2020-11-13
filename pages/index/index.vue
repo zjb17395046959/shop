@@ -84,7 +84,7 @@
 			//获取当前页面的数据列表
 			var list = await this.$http('list',{k:'list'});
 			console.log(list);
-			this.$store.commit('index_list',list.result.data[0].index_list);
+			this.$store.commit('index_list',list.result.data[0].index_list.data);
 		},
 		methods: {
 			
@@ -106,12 +106,12 @@
 			go_shop(val){
 				// #ifdef H5
 				uni.navigateTo({
-					url:'/pages/go_shop/go_shop?list='+encodeURI(encodeURI(JSON.stringify(val)))
+					url:'/indexPage/pages/go_shop/go_shop?list='+encodeURI(encodeURI(JSON.stringify(val)))
 				})
 				// #endif
 				// #ifndef H5
 				uni.navigateTo({
-					url:'/pages/go_shop/go_shop?list='+JSON.stringify(val)
+					url:'/indexPage/pages/go_shop/go_shop?list='+JSON.stringify(val)
 				})
 				// #endif
 			}
@@ -225,7 +225,7 @@
 						  padding: 4rpx 8rpx;
 						  color: orange;
 						  border-radius: 10rpx;
-						  font-size: 10rpx;
+						  font-size: 20rpx;
 						  background-color: #fdf3e7;
 						  margin-right: 10rpx;
 					  }

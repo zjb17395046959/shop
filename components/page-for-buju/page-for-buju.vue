@@ -22,6 +22,9 @@
 				default:false
 			}
 		},
+		onShow() {
+			
+		},
 		data(){
 			return{
 				
@@ -31,10 +34,12 @@
 </script>
 
 <style scoped lang="scss">
+	/* #ifdef MP-WEIXIN || MP-ALIPAY */
 	// .page-for{
 	// 	width: 100%;
 	// 	height: 100%;
 	// }
+	/* #endif */
 	.swiper-item-all-list{
 		width: 100%;
 		display: flex;

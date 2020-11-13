@@ -8,6 +8,10 @@
     "app-plus" : {
         "nvueCompiler" : "uni-app",
         "compilerVersion" : 3,
+		"optimization":{
+			"subPackages":true
+		},
+		"runmode":"liberate",
         "modules" : {
             "Share" : {}
         },
@@ -75,7 +79,18 @@
             }
         },
         "devServer" : {
-            "https" : true
+            // "prot":8000,//端口号
+			"disableHostCheck":true,
+			"proxy":{
+				"/api":{
+					"target":"https://localhost:8081",
+					"changeOrigin":true,
+					"sucure":false,
+					"pathRewrite":{
+						"^/api":""
+					}
+				}
+			}
         },
         "uniStatistics" : {
             "enable" : true

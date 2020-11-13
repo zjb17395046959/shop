@@ -2,7 +2,7 @@
 	<!-- 登录模板布局开始 -->
 	<view class="login">
 		<!-- 用户头像 -->
-		<image class="login-img" src="../../static/img/16.jpg" mode="widthFix"></image>
+		<image class="login-img" src="https://vkceyugu.cdn.bspapp.com/VKCEYUGU-aliyun-wm60vejtdast68da9b/bf83d600-1ffc-11eb-880a-0db19f4f74bb.jpg" mode="widthFix"></image>
 		<!-- 输入框布局 -->
 		<!-- 登录页 -->
 		<view class="login-input" v-show="iShow">
@@ -120,12 +120,31 @@
 					return false;
 				}
 				this.yzmTimer = 60;
-				// 请求短信验证码的接口
-				// var res = await this.$http.yzmCode({
-				// 	mode:0,
-				// 	mobilePhoneNumber:this.iponeNumber
-				// })
-				// console.log(res);
+				// 请求短信验证码的接口,需要进行购买发送短信的业务
+				
+				uniCloud.callFunction({
+					name:'set-sheZhi',
+					data:{
+						action:'set-code',
+						mobile:this.iponeNumber
+					},
+					success: (res) => {
+						//验证码设置成功，需要在云函数中进行查看
+						if(res.result.code === 0){
+							console.log(res);
+							this.get_code()
+						}else{
+							uni.showModal({
+							    content: res.result.message,
+							    showCancel: false
+							})
+						}
+					},
+					fail: (msg) => {
+						console.error(msg);
+						
+					}
+				})
 				var timer = setInterval(()=>{
 					this.yzmTimer -- ;
 					this.yzmTitle = this.yzmTimer + 's后重新获取';
@@ -137,13 +156,42 @@
 				},1000);
 				
 			},
+			//从云函数中获取到code的数据
+			get_code(){
+				uniCloud.callFunction({
+					name:'set-sheZhi',
+					data:{
+						action:'get-code',
+						mobile:this.iponeNumber
+					},
+					success: (ret) => {
+						console.log(ret);
+						//返回多条数据的话就取最后一个最新的code
+						if(res.result.data.legnth >1){
+							uni.showModal({
+								content: res.result.data[res.result.data-1].code,
+								showCancel: false
+							})
+						}else{//一个的话，就直接获取当前的code值
+							uni.showModal({
+								content: res.result.data.code,
+								showCancel: false
+							})
+						}
+					},
+					fail: (mes) => {
+						console.error(mes)
+					}
+				})
+			},
 			btn(k){//k=1；登录   k=2注册
+			var that = this;
 				switch (k){
 					case 1:
-						if(this.phoneNumber()&&this.checkPassword()){
+						if(that.phoneNumber()&&that.checkPassword()){
 							//如果验证都通过了，那么就跳转到我的页面
 							let oldPassword = uni.getStorageSync('password')||'';
-							let newPassword = this.md5(this.password);
+							let newPassword = that.md5(that.password);
 							if(oldPassword != newPassword){
 								uni.showToast({
 									title:'密码错误',
@@ -151,60 +199,87 @@
 								});
 								return false;
 							}
-							uni.showToast({
-								icon:'success',
-								title:'登录成功'
+							//登录
+							uniCloud.callFunction({
+								name:'user-center',
+								data:{
+									action:'login',
+									params:{
+										username:that.userName,
+										password:that.password
+									}
+								},
+								success: (ret) => {
+									if(ret.result.code === 0 ){
+										uni.showToast({
+											icon:'success',
+											title:'登录成功'
+										})
+										// setTimeout(()=>{
+											uni.reLaunch({
+												url:'/pages/my/my'
+											})
+										// },1000)
+									}else{
+										uni.showModal({
+											content: res.result.message,
+											showCancel: false
+										})
+									}
+								},
+								fail: (msg) => {
+									console.error(msg);
+									
+								}
 							})
-							// setTimeout(()=>{
-								uni.reLaunch({
-									url:'/pages/my/my'
-								})
-							// },1000)
 						}
 						break;
 					case 2:
-					// uniCloud.callFunction({
-					//     name: 'register',
-					//     data: {
-					//         username: this.userName,
-					//         password: this.yzm
-					//     },
-					//     success(res){
-					// 		console.log(res);
-					//         if(res.result.code === 0) {
-					//       // 目前版本是驼峰形式uniIdToken，后面会调整为蛇形uni_id_token（调整后会在一段时间内兼容驼峰）
-					//             uni.setStorageSync('uniIdToken',res.result.token)
-					//             // 其他业务代码，如跳转到首页等
-					//             uni.showToast({
-					//                 title: '注册成功',
-					//                 icon: 'none'
-					//             })
-					//         } else {
-					//             uni.showModal({
-					//                 content: res.result.message,
-					//                 showCancel: false
-					//             })
-					//         }
-					//     },
-					//     fail(){
-					//         uni.showModal({
-					//             content: '注册失败，请稍后再试',
-					//             showCancel: false
-					//         })
-					//     }
-					// })
-						if(this.phoneNumberVerify()&&this.yzmCode()){
-							uni.showToast({
-								icon:'success',
-								title:'注册成功'
-							});
-							uni.setStorageSync('ipone',this.iponeNumber);
-							uni.setStorageSync('token',this.iponeNumber);
-							// setTimeout(()=>{
-								uni.reLaunch({
-									url:'/pages/my/my'
-								})
-							// },1000)
+						if(that.phoneNumberVerify()&&that.yzmCode()){
+							console.log(that.iponeNumber)
+							//注册
+							uniCloud.callFunction({
+							    name: 'user-center',
+							    data: {
+									action:'inviteLogin',
+									params:{
+										mobile: that.iponeNumber,
+										code: that.yzm
+									}
+							        
+							    },
+							    success(res){
+									console.log(res);
+							        if(res.result.code === 0) {
+							      // 目前版本是驼峰形式uniIdToken，后面会调整为蛇形uni_id_token（调整后会在一段时间内兼容驼峰）
+							            uni.setStorageSync('token',res.result.token)
+							            // 其他业务代码，如跳转到首页等
+							            uni.showToast({
+							                title: '注册成功',
+							                icon: 'none'
+							            })
+										uni.setStorageSync('ipone',that.iponeNumber);
+										// uni.setStorageSync('token',this.iponeNumber);
+										// // setTimeout(()=>{
+											// uni.reLaunch({
+											// 	url:'/pages/my/my'
+											// })
+										// },1000)
+							        } else {
+							            uni.showModal({
+							                content: res.result.message,
+							                showCancel: false
+							            })
+							        }
+							    },
+							    fail(){
+							        uni.showModal({
+							            content: '注册失败，请稍后再试',
+							            showCancel: false
+							        })
+							    }
+							})
+							
 						}
 						break;
 					default:

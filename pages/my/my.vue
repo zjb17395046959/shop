@@ -4,25 +4,25 @@
 		<!-- 头部导航开始布局 -->
 		<view class="my-nav">
 			<!-- #ifdef APP-PLUS || H5 -->
-			<image src="../../static/img/16.jpg" mode="widthFix"></image>
-			<text class="my-nav-title" v-show="!token" @click="log">未登入，点击登入</text>
-			<view class="my-nav-box" v-show="token">
+			<image src="https://vkceyugu.cdn.bspapp.com/VKCEYUGU-aliyun-wm60vejtdast68da9b/bf83d600-1ffc-11eb-880a-0db19f4f74bb.jpg" mode="widthFix"></image>
+			<text class="my-nav-title" v-show="!is_token" @click="log">未登入，点击登入</text>
+			<view class="my-nav-box" v-show="is_token">
 				<view class="">用户:{{ipone | format_ipone}}</view>
 				<view class="">称号：九品茶杰</view>
 			</view>
 			<!-- #endif -->
 			<!-- #ifdef MP-WEIXIN || MP-ALIPAY-->
-			<image src="../../static/img/16.jpg" mode="widthFix" v-if="!token" ></image>
-			<image :src="img_url" mode="widthFix" v-if="token"></image>
+			<!-- <image :src="" mode="widthFix" v-if="!token" ></image> -->
+			<image :src="img_url" mode="widthFix"></image>
 			<!-- #ifdef MP-WEIXIN -->
-			<button class="my-nav-title wx-title" v-if="!token" open-type="getUserInfo"
+			<button class="my-nav-title wx-title" v-if="!is_token" open-type="getUserInfo"
 			@getuserinfo = "wx_user">未登入，点击登入</button>
 			<!-- #endif -->
 			<!-- #ifdef MP-ALIPAY -->
-			<button class="my-nav-title wx-title" v-if="!token" open-type="getAuthorize" scope="userInfo"
+			<button class="my-nav-title wx-title" v-if="!is_token" open-type="getAuthorize" scope="userInfo"
 			@click = "getAuthorize">未登入，点击登入</button>
 			<!-- #endif -->
-			<view class="my-nav-box" v-if="token">
+			<view class="my-nav-box" v-if="is_token">
 				<view class="">用户:{{userName}}</view>
 				<view class="">称号：九品茶杰</view>
 			</view>
@@ -62,7 +62,7 @@
 	export default {
 		data(){
 			return{
-				token:'',
+				is_token:false,
 				ipone:'',
 				//导航列表数据
 				my_nav:[
@@ -79,8 +79,8 @@
 					{id:4,title:'收货地址',icon:'shouhuodizhi',img:'/static/img/right.png'}
 				],
 				// #ifdef MP-WEIXIN || MP-ALIPAY
-				img_url:uni.getStorageSync('user').avatarUrl||'',
-				userName:uni.getStorageSync('user').nickName||''
+				img_url:'https://vkceyugu.cdn.bspapp.com/VKCEYUGU-aliyun-wm60vejtdast68da9b/bf83d600-1ffc-11eb-880a-0db19f4f74bb.jpg',
+				userName:''
 				// #endif
 			}
 		},
@@ -89,40 +89,75 @@
 		onNavigationBarButtonTap(e) {
 			if(e.index == 0){
 				this.$config.navigate({
-					url:'/pages/sheZhi/sheZhi'
+					url:'/myPage/pages/sheZhi/sheZhi'
 				})
 			}
 		},
 		// #endif
 		onShow() {//每次进入页面重新获取数据，这样的话，可以使用页面刷新，就可以使数据达到实时更新，
-			this.token = uni.getStorageSync('token')||'';
-			// this.$config.token = this.token;
+			// this.token = uni.getStorageSync('token')||'';
+			this.img_url = uni.getStorageSync('user').avatarUrl||'https://vkceyugu.cdn.bspapp.com/VKCEYUGU-aliyun-wm60vejtdast68da9b/bf83d600-1ffc-11eb-880a-0db19f4f74bb.jpg';
+			this.userName = uni.getStorageSync('user').nickName||'';
 			this.ipone = uni.getStorageSync('ipone')||'';
 		},
 		methods:{
 			// #ifdef MP-WEIXIN
 			wx_user(e){//点击获取用户信息
-				this.img_url = e.detail.userInfo.avatarUrl;
-				this.userName = e.detail.userInfo.nickName;
-				this.token = e.detail.cloudID;
-				uni.setStorageSync('user',e.detail.userInfo);
-				uni.setStorage({
-					key:'token',
-					data:e.detail.cloudID,
-					success() {
-						console.log('成功')
-					},fail(msg) {
-						console.log(msg);
-						console.log('失败')
+			var that = this;
+				uni.showLoading({
+					title:'登录中...'
+				})
+				uni.login({
+					success(res) {
+						uniCloud.callFunction({
+							name:'user-center',
+							data:{
+								action: 'loginByWeixin',
+								params:{
+									code:res.code
+								}
+							},
+							success:ret=>{
+								if(ret.result.code == 0){
+									that.is_token = true;
+									uni.hideLoading();
+									that.img_url = e.detail.userInfo.avatarUrl;
+									that.userName = e.detail.userInfo.userName;
+									console.log(that.img_url);
+									console.log(that.userName)
+									uni.setStorageSync('user',e.detail.userInfo);
+									uni.setStorageSync('token',ret.result.token);
+									uni.setStorageSync('uni_id_token_expired',ret.result.tokenExpired);
+								}
+							},
+							fail:msg1=>{
+								that.is_token = false;
+								uni.hideLoading();
+								console.error(msg1);
+								uni.showModal({
+								    showCancel: false,
+								    content: '微信登录失败，请稍后再试'
+								})
+							}
+						})
+					},fail:msg=>{
+						that.is_token = false;
+						uni.hideLoading();
+						console.error(msg);
+						uni.showModal({
+						    showCancel: false,
+						    content: '微信登录失败，请稍后再试'
+						})
 					}
-				});
+				})
+				
 			},
 			// #endif
 			// #ifdef MP-ALIPAY || MP-WEIXIN
 			//点击设置，跳转到设置页面
 			wx_sheZhi(){
 				this.$config.navigate({
-					url:'/pages/sheZhi/sheZhi'
+					url:'/myPage/pages/sheZhi/sheZhi'
 				})
 			},
 			// #endif
@@ -190,22 +225,22 @@
 					case 0:
 					// 封装的权限验证的路由跳转
 						this.$config.navigate({
-							url:'/pages/my_order/my_order?index=0 '
+							url:'/myPage/pages/my_order/my_order?index=0 '
 						})
 						break;
 					case 1:
 						this.$config.navigate({
-							url:'/pages/my_order/my_order?index=1 '
+							url:'/myPage/pages/my_order/my_order?index=1 '
 						})
 						break;
 					case 2:
 						this.$config.navigate({
-							url:'/pages/my_order/my_order?index=3 '
+							url:'/myPage/pages/my_order/my_order?index=3 '
 						})
 						break;
 					default:
 						this.$config.navigate({
-							url:'/pages/my_order/my_order?index=4 '
+							url:'/myPage/pages/my_order/my_order?index=4 '
 						})
 						break;
 				}

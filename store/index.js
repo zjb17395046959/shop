@@ -48,15 +48,27 @@ const store = new Vuex.Store({
 		// ]
 	},
 	mutations:{
+		/**
+		 * 这是通过首页onload加载的时候，请求数据云函数，
+		 * 然后将数据传递到仓库中，其他的组件中在进行调用仓库中的数据
+		 * */
 		init(state,obj){
 			// console.log('1111')
 			// console.log(obj);
 			state.index_swiper = obj.index;
 			state.show_swiper = obj.show;
 		},
+		/**
+		 * 这是首页请求云函数列表的数据，进行传递到仓库，
+		 * 在通过辅助函数，mapState进行实时传递数据，渲染
+		 * */
 		index_list(state,val){
 			state.index_list = val;
 		},
+		/**
+		 * 这是在show.vue中请求云函数列表数据
+		 * 通过仓库store进行实时的传递
+		 * */
 		show_list(state,val){
 			state.show_list = val;
 		}

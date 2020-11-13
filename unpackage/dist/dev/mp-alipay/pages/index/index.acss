@@ -44,15 +44,18 @@ page {
 }
 .index .index-input-search {
   padding: 20rpx 40rpx;
-  box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
 }
 .index .index-input-search input {
   width: 100%;
   height: 60rpx;
-  border-radius: 30rpx;
+  -webkit-border-radius: 30rpx;
+          border-radius: 30rpx;
   background-color: #eee;
   padding-left: 20rpx;
-  box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
 }
 .index .index-input-search .input-active {
   background: url(/static/img/search.png) no-repeat left;
@@ -107,7 +110,8 @@ page {
 .index .index-shop-list .list-wrap > image {
   width: 100%;
   height: 250rpx;
-  border-radius: 20rpx;
+  -webkit-border-radius: 20rpx;
+          border-radius: 20rpx;
 }
 .index .index-shop-list .list-wrap .list-wrap-title {
   width: 100%;
@@ -136,7 +140,8 @@ page {
 .index .index-shop-list .list-wrap .list-wrap-label > text {
   padding: 4rpx 8rpx;
   color: orange;
-  border-radius: 10rpx;
+  -webkit-border-radius: 10rpx;
+          border-radius: 10rpx;
   font-size: 10rpx;
   background-color: #fdf3e7;
   margin-right: 10rpx;
