@@ -21,6 +21,7 @@
 </template>
 
 <script>
+	import code from '../../../../static/js/code.js'
 	export default {
 		data() {
 			return {
@@ -62,12 +63,9 @@
 					return false;
 				}
 				this.yzmTimer = 60;
-				// 请求短信验证码的接口
-				// var res = await this.$http.yzmCode({
-				// 	mode:0,
-				// 	mobilePhoneNumber:this.iponeNumber
-				// })
-				// console.log(res);
+				// 请求短信验证码的接口,调用封装的方法
+				code.get_code(this.ipone);
+				
 				var timer = setInterval(()=>{
 					this.yzmTimer -- ;
 					this.yzmTitle = this.yzmTimer + 's后重新获取';
@@ -100,16 +98,36 @@
 			},
 			//点击确认换绑按钮
 			btn(){
-				uni.setStorageSync('ipone',this.ipone);
-				uni.showToast({
-					title : '换绑成功！',
-					icon : 'success'
-				});
-				setTimeout(()=>{
-					uni.navigateBack({
-						delta:1
-					})
-				},1000)
+				uniCloud.callFunction({
+					name:'set-sheZhi',
+					data:{
+						action:'bind-mobile',
+						mobile:this.ipone,
+						code:this.yzmTitle
+					},
+					success: (res) => {
+						console.log(res)
+						if(res.result.code ===0){
+							uni.showToast({
+								title : '换绑成功！',
+								icon : 'success'
+							});
+							uni.setStorageSync('ipone',this.ipone);
+							// setTimeout(()=>{
+							// 	uni.navigateBack({
+							// 		delta:1
+							// 	})
+							// },1000)
+						}else{
+							uni.showModal({
+								showCancel:false,
+								content:res.result.message
+							})
+						}
+					},fail: (msg) => {
+						console.log(msg);
+					}
+				})
 			}
 		}
 	}

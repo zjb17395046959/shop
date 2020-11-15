@@ -121,18 +121,32 @@
 				}
 				this.yzmTimer = 60;
 				// 请求短信验证码的接口,需要进行购买发送短信的业务
+				this.get_code();
 				
+				var timer = setInterval(()=>{
+					this.yzmTimer -- ;
+					this.yzmTitle = this.yzmTimer + 's后重新获取';
+					if(this.yzmTimer < 1){
+						clearInterval(timer);
+						this.yzmTimer = 0 ;
+						this.yzmTitle = '获取验证码';
+					}
+				},1000);
+				
+			},
+			set_code(){
+				var that = this;
 				uniCloud.callFunction({
 					name:'set-sheZhi',
 					data:{
 						action:'set-code',
-						mobile:this.iponeNumber
+						mobile:that.iponeNumber
 					},
 					success: (res) => {
 						//验证码设置成功，需要在云函数中进行查看
 						if(res.result.code === 0){
 							console.log(res);
-							this.get_code()
+							that.get_code1()
 						}else{
 							uni.showModal({
 							    content: res.result.message,
@@ -145,16 +159,6 @@
 						
 					}
 				})
-				var timer = setInterval(()=>{
-					this.yzmTimer -- ;
-					this.yzmTitle = this.yzmTimer + 's后重新获取';
-					if(this.yzmTimer < 1){
-						clearInterval(timer);
-						this.yzmTimer = 0 ;
-						this.yzmTitle = '获取验证码';
-					}
-				},1000);
-				
 			},
 			//从云函数中获取到code的数据
 			get_code(){
@@ -166,21 +170,62 @@
 					},
 					success: (ret) => {
 						console.log(ret);
+						
 						//返回多条数据的话就取最后一个最新的code
-						if(res.result.data.legnth >1){
-							uni.showModal({
-								content: res.result.data[res.result.data-1].code,
-								showCancel: false
-							})
+						if(ret.result.data.length >=1){
+							console.log('我是初次获取code')
+							this.remote_code();
+							this.set_code();
 						}else{//一个的话，就直接获取当前的code值
-							uni.showModal({
-								content: res.result.data.code,
-								showCancel: false
-							})
+						this.set_code();
+						// console.log(ret.result.data)
+						// 	uni.showModal({
+						// 		content: ret.result.data.code,
+						// 		showCancel: false
+						// 	})
 						}
 					},
 					fail: (mes) => {
 						console.error(mes)
+					}
+				})
+			},
+			get_code1(){
+				uniCloud.callFunction({
+					name:'set-sheZhi',
+					data:{
+						action:'get-code',
+						mobile:this.iponeNumber
+					},
+					success: (ret) => {
+						console.log(ret);
+						console.log(ret.result.data.length)
+						//返回多条数据的话就取最后一个最新的code
+						console.log('我是设置code后在获取code')
+						console.log(ret.result.data)
+							uni.showModal({
+								content: ret.result.data[0].code,
+								showCancel: false
+							})
+						
+					},
+					fail: (mes) => {
+						console.error(mes)
+					}
+				})
+			},
+			remote_code(){
+				uniCloud.callFunction({
+					name:'set-sheZhi',
+					data:{
+						action:'delete-code',
+						mobile:this.iponeNumber
+					},
+					success: (val) => {
+						console.log('我是删除code')
+						console.log(val)
+					},fail: (msg) => {
+						console.error(msg);
 					}
 				})
 			},
